@@ -5,9 +5,14 @@ import platform
 with open("requirements.txt") as f:
     requirements = f.read().splitlines()
 
-# Adjust PyTorch version for Intel-based macOS
+# Adjust PyTorch and NumPy versions for Intel-based macOS
 if platform.system() == "Darwin" and platform.machine() == "x86_64":
-    requirements = [r if not r.startswith("torch==") else "torch<=2.2.2" for r in requirements]
+    requirements = [
+        r if not r.startswith("torch==") else "torch<=2.2.2" for r in requirements
+    ]
+    requirements = [
+        r if not r.startswith("numpy==") else "numpy<2.0" for r in requirements
+    ]
 
 setup(
     name="simvp_minimal",
