@@ -91,7 +91,7 @@ boiling_data/
 └── ...
 ```
 
-Each simulation folder contains sequential NumPy files representing frames in the simulation, normalized to the range [0, 1].
+Each simulation folder contains sequential NumPy files representing frames in the simulation. The simulations model temperatures ranging from 0°F to 212°F (boiling point), but are automatically normalized to the range [0, 1] before being saved to disk.
 
 ### Step 2: Create Data Loaders
 
@@ -256,9 +256,10 @@ python tools/visualize/visualize_grid.py ./work_dirs/my_experiment/saved [SAMPLE
 ```
 
 This will create a grid image showing:
-- Top row: Input frames
-- Middle row: Ground truth future frames
-- Bottom row: Model predictions
+- 1st Row: Input frames (frames given to the model)
+- 2nd Row: Ground truth future frames (frames the model tries to predict)
+- 3rd Row: Predicted frames (frames the model generated)
+- 4th Row: Difference frames (residual between ground truth and predicted frames)
 
 The visualization script will generate a PNG file named `grid_[SAMPLE_ID].png` in the current directory. This grid provides a visual comparison between the input sequence, actual future frames, and the model's predictions.
 
@@ -317,6 +318,7 @@ work_dirs/
 The framework supports any spatiotemporal data, not just the boiling simulation. Simply organize your data in a similar format:
 - Each sample in its own directory
 - Sequential frames as numbered NumPy files (0.npy, 1.npy, etc.)
+- Data should be pre-normalized to the range [0, 1]
 - Use `create_dataloader.py` to prepare the data loader JSON file
 
 The `SimVP_Dataset` class in `simvp_minimal/dataset.py` will handle loading the data for training and testing. This allows the model to work with any type of spatiotemporal data that follows this format.
@@ -479,10 +481,6 @@ Choose a sample ID and run the visualization script:
 Grid image saved as grid_17d1b9444e4f0d01ca161d847a3c2040def9ed8f84147366838640a43bba706f_boiling_21.png
 ```
 
+This generates a visualization grid like the following:
+
 ![Visualization Grid Example](examples/grid_17d1b9444e4f0d01ca161d847a3c2040def9ed8f84147366838640a43bba706f_boiling_21.png)
-
-
-This generates a visualization grid showing:
-- Top row: Input frames (10 frames given to the model)
-- Middle row: Ground truth future frames (10 frames the model tries to predict)
-- Bottom row: Predicted frames (10 frames the model generated)
