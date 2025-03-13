@@ -263,6 +263,47 @@ This will create a grid image showing:
 
 The visualization script will generate a PNG file named `grid_[SAMPLE_ID].png` in the current directory. This grid provides a visual comparison between the input sequence, actual future frames, and the model's predictions.
 
+## Visualizing Results
+
+After training and inference, you can visualize the model predictions. The visualization script requires two main parameters:
+1. The base directory containing the saved model outputs
+2. A sample ID, which is the name of one of the subfolders in the inputs/trues/preds directories
+
+First, list the available sample IDs (these are the subfolder names in the saved inputs directory):
+
+```bash
+# List available sample IDs
+ls ./work_dirs/my_experiment/saved/inputs/
+```
+
+Example output (truncated for brevity):
+```
+17d1b9444e4f0d01ca161d847a3c2040def9ed8f84147366838640a43bba706f_boiling_21
+25760aa4da991913e397940410c590e45339826fa84cf1cf6ee169d9036a567c_boiling_74
+341d0f587fc11cbcd40531292176af939800af55daaed5ed2e19ed7c8b0f0c0a_boiling_93
+36680ad40b2dc1b66fa16598bd30adcd4c54ba204dbb5871a6c4b59c2c304d20_boiling_9
+41fd6c3649522995cd8160ff6824596174100acdb58462cc09637b61362f0ba5_boiling_17
+...
+f08296ae7c486b29f5ff4429d67f9c127d6ed5f614e414776e5b8edcb1ccb9ce_boiling_39
+```
+
+Then run the visualization script with the chosen sample ID:
+
+```bash
+# Visualize a specific sample by its ID
+python tools/visualize/visualize_grid.py ./work_dirs/my_experiment/saved 17d1b9444e4f0d01ca161d847a3c2040def9ed8f84147366838640a43bba706f_boiling_21 --colormap Purples --save
+```
+
+The visualization script will generate a PNG file named `grid_[SAMPLE_ID].png` in your current working directory. For example: `grid_17d1b9444e4f0d01ca161d847a3c2040def9ed8f84147366838640a43bba706f_boiling_21.png`
+
+The generated grid image shows:
+- 1st Row: Input frames (frames given to the model)
+- 2nd Row: Ground truth future frames (frames the model tries to predict)
+- 3rd Row: Predicted frames (frames the model generated)
+- 4th Row: Difference frames (residual between ground truth and predicted frames)
+
+This grid provides a visual comparison between the input sequence, actual future frames, and the model's predictions.
+
 ## Understanding the Output Directory Structure
 
 When you run training and inference, the code will create a structured output directory under `./work_dirs/[ex_name]/`. Here's what you can expect to find:
