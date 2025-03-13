@@ -21,6 +21,11 @@ from .metrics import calc_ssim, calc_mse, calc_mae, calc_rmse, calc_psnr
 from .simvpgsta_model import SimVP_Model
 from .utils import create_dataloaders, AverageMeter, check_dir, format_seconds, measure_throughput, weights_to_cpu, get_dist_info, init_dist, set_seed, init_random_seed
 
+try:
+    import nni
+    has_nni = True
+except ImportError:
+    has_nni = False
 
 has_native_amp = False
 try:

@@ -13,12 +13,6 @@ from simvp_minimal.experiment_recorder import generate_unique_id
 from simvp_minimal.experiment import Experiment
 from simvp_minimal.utils import create_parser, get_dist_info, generate_config, update_config, load_config, setup_multi_processes, format_seconds
 
-try:
-    import nni
-
-    has_nni = True
-except ImportError:
-    has_nni = False
 
 if __name__ == '__main__':
     start_time = time.time()
@@ -30,9 +24,6 @@ if __name__ == '__main__':
     config = args.__dict__
     config.update(training_config)
 
-    if has_nni:
-        tuner_params = nni.get_next_parameter()
-        config.update(tuner_params)
 
     if args.config_file is None:
         args.config_file = osp.join('./configs', args.dataname, f'{args.method}.py')
@@ -63,9 +54,6 @@ if __name__ == '__main__':
     else:
         print('>' * 35 + f' testing {args.ex_name}  ' + '<' * 35)
         eval_res, _ = exp.test()
-
-    if rank == 0 and has_nni and 'mse' in eval_res:
-        nni.report_final_result(eval_res['mse'])
 
     if rank == 0:
         elapsed_time = time.time() - start_time
