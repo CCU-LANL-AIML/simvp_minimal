@@ -246,25 +246,6 @@ python tools/run/train.py --config_file ./config/SimVP.py ...
 
 ## Visualizing Results
 
-After training and inference, you can visualize the model predictions:
-
-```bash
-# List available samples
-ls ./work_dirs/my_experiment/saved/inputs/
-# Choose a sample ID and visualize
-python tools/visualize/visualize_grid.py ./work_dirs/my_experiment/saved [SAMPLE_ID] --colormap Purples --save
-```
-
-This will create a grid image showing:
-- 1st Row: Input frames (frames given to the model)
-- 2nd Row: Ground truth future frames (frames the model tries to predict)
-- 3rd Row: Predicted frames (frames the model generated)
-- 4th Row: Difference frames (residual between ground truth and predicted frames)
-
-The visualization script will generate a PNG file named `grid_[SAMPLE_ID].png` in the current directory. This grid provides a visual comparison between the input sequence, actual future frames, and the model's predictions.
-
-## Visualizing Results
-
 After training and inference, you can visualize the model predictions. The visualization script requires two main parameters:
 1. The base directory containing the saved model outputs
 2. A sample ID, which is the name of one of the subfolders in the inputs/trues/preds directories
