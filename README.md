@@ -4,6 +4,14 @@ This repository contains a minimalist implementation of SimVP from the [OpenSTL 
 You can read more about SimVP in the original papers [SimVP: Simpler yet Better Video Prediction](https://arxiv.org/abs/2206.05099) and 
 [SimVP: Towards Simple yet Powerful Spatiotemporal Predictive Learning](https://arxiv.org/abs/2211.12509).
 
+## Environment Options
+
+- **Cross-Platform**: The codebase functions identically across all platforms; only the command syntax differs. Choose the appropriate guide based on your operating system and preferred terminal.
+
+- **Linux/macOS/WSL2**: Use the instructions in this README.md file for Unix-like environments. This includes native Linux installations, macOS, and the Windows Subsystem for Linux (WSL2).
+
+- **Windows (Native)**: For users running directly on Windows using PowerShell or Command Prompt, refer to the [WINDOWS.md](WINDOWS.md) file which contains equivalent commands adapted for Windows syntax.
+
 ## Repository Structure
 
 ```
@@ -52,6 +60,15 @@ Install the package and dependencies:
 
 ```bash
 pip install .
+```
+
+### Removing the Environment (If Needed)
+
+If you need to remove the environment later:
+
+```bash
+conda deactivate
+conda remove --name $MY_ENV_NAME --all
 ```
 
 ## Generating Simulation Data
@@ -346,6 +363,8 @@ The framework supports any spatiotemporal data, not just the boiling simulation.
 The `SimVP_Dataset` class in `simvp_minimal/dataset.py` will handle loading the data for training and testing. This allows the model to work with any type of spatiotemporal data that follows this format.
 
 ## Complete Workflow Example
+
+> **Note:** This example was completed on *Windows Subsystem for Linux 2 (WSL2)* running `Ubuntu 22.04.4 LTS`
 
 Here's a detailed example of running the complete workflow from data generation to visualization, showing actual terminal outputs:
 
