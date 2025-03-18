@@ -47,7 +47,8 @@ def create_image_grid(base_dir, subdir_name, cmap=None, save=False):
         axes[2, i].set_title(f'Pred {i}')
         axes[2, i].axis('off')
 
-        axes[3, i].imshow(true_images[i] - pred_images[i], cmap=cmap)
+        difference = np.abs(true_images[i] - pred_images[i])
+        axes[3, i].imshow(difference, cmap=cmap)
         axes[3, i].set_title(f'Diff {i}')
         axes[3, i].axis('off')
 
